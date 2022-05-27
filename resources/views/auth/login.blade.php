@@ -8,10 +8,10 @@
         </a>
         <div class="form-content form-account">
 
-            <input id="email" type="text" class="txt-l txt @error('email') is-invalid @enderror" name="email"
-                   placeholder="ایمیل یا شماره موبایل" value="{{ old('email') }}" required autocomplete="email"
+            <input id="username" type="text" class="txt-l txt @error('username') is-invalid @enderror" name="username"
+                   placeholder="ایمیل یا شماره موبایل" value="{{ old('username') }}" required autocomplete="username"
                    autofocus>
-            @error('email')
+            @error('username')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
@@ -34,7 +34,7 @@
                 <span class="checkmark"></span>
             </label>
             <div class="recover-password">
-                <a href="recoverpassword.html">بازیابی رمز عبور</a>
+                <a href="{{route('password.request')}}">بازیابی رمز عبور</a>
             </div>
         </div>
         <div class="form-footer">
