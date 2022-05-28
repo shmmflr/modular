@@ -21,5 +21,4 @@ Route::get('/test', function () {
     return view('test');
 })->name('test')->middleware('verified');
 
-Auth::routes(['verify' => true]);
 

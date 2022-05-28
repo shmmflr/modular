@@ -1,12 +1,13 @@
 <?php
 
-namespace Database\Factories;
+namespace Shofo\User\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use function now;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Shofo\User\Models\User>
  */
 class UserFactory extends Factory
 {

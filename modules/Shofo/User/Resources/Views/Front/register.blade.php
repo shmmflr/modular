@@ -1,4 +1,4 @@
-@extends('auth.layout.master')
+@extends('User::Front.layout.master')
 
 @section('content')
     <form action="" class="form" method="post">

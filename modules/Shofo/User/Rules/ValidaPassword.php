@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Rules;
+namespace Shofo\User\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class ValidaMobile implements Rule
+class ValidaPassword implements Rule
 {
     /**
      * Create a new rule instance.
@@ -25,7 +25,8 @@ class ValidaMobile implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/^0env9[0-9]{9}/', $value);
+        return preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{6,}$/'
+            , $value);
     }
 
     /**
@@ -35,6 +36,6 @@ class ValidaMobile implements Rule
      */
     public function message()
     {
-        return 'فرمت وارد شده موبایل شما صحیح نمی باشد';
+        return 'شما باید طبق متن دستور انتخاب رمز عبور،رمز خود را انتخاب کنبد';
     }
 }

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Shofo\User\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
-use App\Rules\ValidaMobile;
-use App\Rules\ValidaPassword;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Shofo\User\Models\User;
+use Shofo\User\Rules\ValidaMobile;
+use Shofo\User\Rules\ValidaPassword;
 
 class RegisterController extends Controller
 {
@@ -64,7 +64,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param array $data
-     * @return \App\Models\User
+     * @return \Shofo\User\Models\User
      */
     protected function create(array $data)
     {
@@ -75,5 +75,10 @@ class RegisterController extends Controller
             'mobile' => $data['mobile'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function showRegistrationForm(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('User::Front.register');
     }
 }

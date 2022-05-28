@@ -1,4 +1,4 @@
-@extends('auth.layout.master')
+@extends('User::Front.layout.master')
 
 @section('content')
     <form action="{{ route('login') }}" class="form" method="post">
