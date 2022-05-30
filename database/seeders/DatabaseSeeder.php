@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         // \Shofo\User\Models\User::factory(10)->create();
 
         // \Shofo\User\Models\User::factory()->create([
-        //     'name' => 'Test User',
+        //     'name' => 'Tests User',
         //     'email' => 'test@example.com',
         // ]);
     }
