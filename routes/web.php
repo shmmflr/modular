@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-})->name('index')->middleware('verified');
+})->name('index');
 
 Route::get('/test', function () {
-    return view('test');
-})->name('test')->middleware('verified');
+    return new \Shofo\User\Mail\VerifyEmail();
+})->name('test');
 
 
