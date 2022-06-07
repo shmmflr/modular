@@ -1,5 +1,8 @@
 @extends('User::Front.layout.master')
 
+@section('title')
+    ورود
+@endsection
 @section('content')
     <form action="{{ route('login') }}" class="form" method="post">
         @csrf

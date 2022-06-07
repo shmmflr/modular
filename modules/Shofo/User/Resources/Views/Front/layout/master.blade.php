@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/css/style.css?v={{ uniqid() }}">
     <link rel="stylesheet" href="/css/font/font.css">
-    <title>صفحه ثبت نام</title>
+    @yield('style')
+    <title> @yield('title')</title>
 </head>
 <body>
 <main>
@@ -15,5 +16,6 @@
         @yield('content')
     </div>
 </main>
+@yield('script')
 </body>
 </html>

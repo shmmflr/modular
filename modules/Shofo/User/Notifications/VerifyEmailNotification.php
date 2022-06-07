@@ -6,8 +6,10 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Shofo\User\Helper\VerifyCodeHelper;
+use Shofo\User\Mail\VerifyEmailCode;
 
-class VerifyEmail extends Notification
+class VerifyEmailNotification extends Notification
 {
     use Queueable;
 
@@ -36,21 +38,15 @@ class VerifyEmail extends Notification
      * Get the mail representation of the notification.
      *
      * @param mixed $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return VerifyEmailCode
      */
     public function toMail($notifiable)
     {
-        $code = random_int(100000, 999999);
+        $code = VerifyCodeHelper::generateCode();
 
-        cache()->set(
-            'verify_code_' . $notifiable->id,
-            $code,
-            now()->addDay());
+        VerifyCodeHelper::storeCache($notifiable->id, $code);
 
-        return (new MailMessage)
-            ->line('The Verify Code Is :' . $code)
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+        return (new VerifyEmailCode($code))->to($notifiable->email);
     }
 
     /**
