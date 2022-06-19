@@ -4,12 +4,12 @@ namespace Shofo\User\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Shofo\User\Helper\VerifyCodeHelper;
+use Shofo\User\Mail\ResetPasswordRequestEmail;
 use Shofo\User\Mail\VerifyEmailCode;
 
-class VerifyEmailNotification extends Notification
+class ResetPasswordRequestNotification extends Notification
 {
     use Queueable;
 
@@ -38,15 +38,15 @@ class VerifyEmailNotification extends Notification
      * Get the mail representation of the notification.
      *
      * @param mixed $notifiable
-     * @return VerifyEmailCode
+     * @return ResetPasswordRequestEmail
      */
     public function toMail($notifiable)
     {
         $code = VerifyCodeHelper::generateCode();
 
-        VerifyCodeHelper::storeCache($notifiable->id, $code, now()->addDay());
+        VerifyCodeHelper::storeCache($notifiable->id, $code, 120);
 
-        return (new VerifyEmailCode($code))->to($notifiable->email);
+        return (new ResetPasswordRequestEmail($code))->to($notifiable->email);
     }
 
     /**

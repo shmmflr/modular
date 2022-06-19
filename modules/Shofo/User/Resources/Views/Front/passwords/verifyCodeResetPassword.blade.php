@@ -2,22 +2,26 @@
 
 @section('content')
     <div class="account act">
-        <form action="{{route('verification.verify')}}" class="form" method="post">
+
+        <form action="{{route('check.verify.code')}}" class="form" method="post">
             @csrf
             <a class="account-logo" href="{{route('index')}}">
                 <img src="/img/weblogo.png" alt="">
             </a>
             <div class="card-header">
                 <p class="activation-code-title">
-                    کد تایید را وارد کنید
+                    کد تغییر رمز عبور برای
+                    {{request('email')}}
                 </p>
             </div>
             <div class="form-content form-content1">
+                <input type="hidden" name="email" value="{{request('email')}}">
                 <input name="verify_code" class="activation-code-input" placeholder="فعال سازی">
+                {{--                @dd(request())--}}
                 @error('verify_code')
                 <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
-            </span>
+                </span>
                 @enderror
                 <br>
                 <button class="btn i-t">تایید</button>

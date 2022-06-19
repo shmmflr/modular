@@ -2,12 +2,12 @@
 
 
 @section('content')
-    <form action="" class="form" method="post">
+    <form action="{{route('password.email')}}" class="form" method="get">
         <a class="account-logo" href="{{route('index')}}">
             <img src="/img/weblogo.png" alt="">
         </a>
         <div class="form-content form-account">
-            <input type="text" class="txt-l txt" placeholder="ایمیل">
+            <input name="email" type="text" class="txt-l txt" placeholder="ایمیل">
             <br>
             <button class="btn btn-recoverpass">بازیابی</button>
         </div>

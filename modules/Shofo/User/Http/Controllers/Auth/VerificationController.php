@@ -5,6 +5,8 @@ namespace Shofo\User\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Shofo\User\Helper\VerifyCodeHelper;
+use Shofo\User\Http\Requests\VerifyCodeRequest;
 
 class VerificationController extends Controller
 {
@@ -36,7 +38,7 @@ class VerificationController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('signed')->only('verify');
+//        $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
@@ -44,4 +46,16 @@ class VerificationController extends Controller
     {
         return view('User::Front.verify');
     }
+
+    public function verify(VerifyCodeRequest $request)
+    {
+        $code = $request->get('verify_code');
+        $check = VerifyCodeHelper::check(auth()->id(), $code);
+        if (!$check) {
+            return back()->withErrors(['verify_code' => 'کد وارد شده معتبر نیست']);
+        }
+        auth()->user()->markEmailAsVerified();
+        return redirect()->route('home');
+    }
+
 }
