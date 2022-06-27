@@ -37,6 +37,7 @@ class ResetPasswordController extends Controller
 
     public function reset(ChangePasswordRequest $request)
     {
+
         UserHelper::changePassword(auth()->user(), $request->get('password'));
 
         return redirect()->route('home');

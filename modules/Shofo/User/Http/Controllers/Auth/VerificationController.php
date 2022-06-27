@@ -55,7 +55,7 @@ class VerificationController extends Controller
             return back()->withErrors(['verify_code' => 'کد وارد شده معتبر نیست']);
         }
         auth()->user()->markEmailAsVerified();
-        return redirect()->route('home');
+        return redirect()->route('panel');
     }
 
 }

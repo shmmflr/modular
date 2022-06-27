@@ -187,6 +187,7 @@ return [
          * */
 
         \Shofo\User\Provider\UserServiceProvider::class,
+        \Shofo\Dashboard\Provider\DashboardServiceProvider::class,
 
         /*
          * Package Service Providers...
