@@ -5,7 +5,8 @@ Route::group([
     'prefix' => 'dashboard',
     'middleware' => ['web', 'auth', 'verified']
 ], function ($router) {
-    $router->get('/panel', [\Shofo\Dashboard\Http\Controllers\DashboardController::class, 'home'])
+    $router->get('/panel',
+        [\Shofo\Dashboard\Http\Controllers\DashboardController::class, 'home'])
         ->name('panel');
 });
 

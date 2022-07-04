@@ -188,6 +188,7 @@ return [
 
         \Shofo\User\Provider\UserServiceProvider::class,
         \Shofo\Dashboard\Provider\DashboardServiceProvider::class,
+        \Shofo\RolePermission\Provider\RoelPermissionServiceProvider::class,
 
         /*
          * Package Service Providers...
