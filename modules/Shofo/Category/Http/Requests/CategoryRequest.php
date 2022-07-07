@@ -1,10 +1,10 @@
 <?php
 
-namespace Shofo\RolePermission\Http\Requests;
+namespace Shofo\Category\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RolePermissionRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class RolePermissionRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check() == true;
     }
 
     /**
@@ -24,8 +24,9 @@ class RolePermissionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'min:3', 'string'],
-            'permissions' => ['required' . 'array', 'min:1']
+            'title' => ['required', 'string', 'max:191'],
+            'slug' => ['required', 'string', 'max:191'],
+            'parent_id' => ['nullable', 'exists:categories,id']
         ];
     }
 }

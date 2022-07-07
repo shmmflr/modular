@@ -145,7 +145,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Autoloaded Service Providers
+    | Autoloaded Service Provider
     |--------------------------------------------------------------------------
     |
     | The service providers listed here will be automatically loaded on the
@@ -157,7 +157,7 @@ return [
     'providers' => [
 
         /*
-         * Laravel Framework Service Providers...
+         * Laravel Framework Service Provider...
          */
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
@@ -183,23 +183,24 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
-         * Modules Service Providers
+         * Modules Service Provider
          * */
 
-        \Shofo\User\Provider\UserServiceProvider::class,
-        \Shofo\Dashboard\Provider\DashboardServiceProvider::class,
+        Shofo\User\Provider\UserServiceProvider::class,
+        Shofo\Dashboard\Provider\DashboardServiceProvider::class,
         \Shofo\RolePermission\Provider\RoelPermissionServiceProvider::class,
+        Shofo\Category\Provider\CategoryServiceProvider::class,
 
         /*
-         * Package Service Providers...
+         * Package Service Provider...
          */
 
         /*
-         * Application Service Providers...
+         * Application Service Provider...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        // App\Provider\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
