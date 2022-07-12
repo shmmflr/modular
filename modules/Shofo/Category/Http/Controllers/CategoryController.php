@@ -4,7 +4,9 @@ namespace Shofo\Category\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Shofo\Category\Http\Requests\CategoryRequest;
+use Shofo\Category\Models\Category;
 use Shofo\Category\Repository\CategoryRepo;
+use Shofo\Category\Responses\AjaxResponses;
 
 class CategoryController extends Controller
 {
@@ -28,6 +30,24 @@ class CategoryController extends Controller
 
         $this->categoryRepo->create($request);
         return redirect()->back();
+    }
 
+    public function edit(Category $category)
+    {
+        $categories = $this->categoryRepo->allExeptById($category->id);
+        return view('Category::update', compact('category', 'categories'));
+    }
+
+    public function update(Category $category, CategoryRequest $request)
+    {
+        $this->categoryRepo->edited($category, $request);
+        return back();
+    }
+
+    public function destroy(Category $category)
+    {
+        $this->categoryRepo->delete($category);
+
+        return AjaxResponses::success();
     }
 }

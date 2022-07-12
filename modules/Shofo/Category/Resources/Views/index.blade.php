@@ -24,9 +24,12 @@
                                 <td>{{$category->slug}}</td>
                                 <td>{{$category->parentName()}}</td>
                                 <td>
-                                    <a href="" class="item-delete mlg-15" title="حذف"></a>
+                                    <a href=""
+                                       onclick="deleteItem(event,'{{route('category.destroy',$category->id)}}')"
+                                       class="item-delete mlg-15" title="حذف"></a>
                                     <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                                    <a href="edit-category.html" class="item-edit " title="ویرایش"></a>
+                                    <a href="{{route('category.edit',$category->id)}}" class="item-edit "
+                                       title="ویرایش"></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -40,4 +43,33 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+
+    <script>
+        function deleteItem(event, route) {
+            event.preventDefault();
+            if (confirm('آیا برای حذف اطمینان دارید')) {
+                $.post(route, {_method: 'DELETE', _token: "{{csrf_token()}}"})
+                    .done(function (response) {
+                        event.target.closest('tr').remove();
+                        $.toast({
+                            heading: 'عملیات موفق',
+                            text: response.msg,
+                            showHideTransition: 'slide',
+                            icon: 'success'
+                        })
+                    })
+                    .fail(function (response) {
+                        $.toast({
+                            heading: 'خطا',
+                            text: response.msg,
+                            showHideTransition: 'fade',
+                            icon: 'error'
+                        })
+                    });
+            }
+        }
+    </script>
 @endsection
