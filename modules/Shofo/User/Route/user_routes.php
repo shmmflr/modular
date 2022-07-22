@@ -8,9 +8,20 @@ use Shofo\User\Http\Controllers\Auth\VerificationController;
 
 Route::group([
     'namespace' => 'Shofo\User\Http\Controllers',
+    'middleware' => ['web', 'auth'],
+    'prefix' => 'dashboard'
+], function ($router) {
+    Route::resource('users', "UserController");
+});
+
+
+Route::group([
+    'namespace' => 'Shofo\User\Http\Controllers',
     'middleware' => 'web'
 ], function ($router) {
 //    Auth::routes(['verify' => true]);
+
+
     Route::post('/email/verify', [VerificationController::class, 'verify'])->name('verification.verify');
     Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
     Route::get('/email/verify', [VerificationController::class, 'show'])->name('verification.notice');

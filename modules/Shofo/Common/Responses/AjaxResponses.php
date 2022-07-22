@@ -1,12 +1,12 @@
 <?php
 
-namespace Shofo\Category\Responses;
+namespace Shofo\Common\Responses;
 
 use Illuminate\Http\Response;
 
+
 class AjaxResponses
 {
-
     public static function success()
     {
         return response()->json(
@@ -14,5 +14,4 @@ class AjaxResponses
             Response::HTTP_OK
         );
     }
-
 }

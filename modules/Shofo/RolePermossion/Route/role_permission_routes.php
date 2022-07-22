@@ -7,5 +7,5 @@ Route::group([
     'prefix' => 'dashboard',
     'middleware' => ['web', 'auth', 'verified']
 ], function ($router) {
-    $router->resource('/role_permissions', RolePermissionController::class)->middleware(['permission:manage permissions']);
+    $router->resource('/role_permissions', RolePermissionController::class);
 });

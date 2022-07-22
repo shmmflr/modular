@@ -10,14 +10,20 @@ class CategoryServiceProvider extends ServiceProvider
 
     public function register()
     {
-
+        $this->loadRoutesFrom(__DIR__ . '/../Route/category_routes.php');
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Category');
     }
 
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__ . '/../Route/category_routes.php');
-        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
-        $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Category');
+
+        config()->set('sidebar.items.categories',
+            [
+                'title' => 'دسته بندی ها',
+                'icon' => ' i-categories',
+                'url' => route('category.index')
+            ]);
     }
 
 }

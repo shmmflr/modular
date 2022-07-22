@@ -35,7 +35,8 @@
             "Shofo\\User\\": "modules/Shofo/User",
             "Shofo\\Dashboard\\": "modules/Shofo/Dashboard",
             "Shofo\\RolePermission\\": "modules/Shofo/RolePermossion",
-            "Shofo\\Category\\": "modules/Shofo/Category"
+            "Shofo\\Category\\": "modules/Shofo/Category",
+            "Shofo\\Common\\": "modules/Shofo/Common"
         }
     },
     "autoload-dev": {

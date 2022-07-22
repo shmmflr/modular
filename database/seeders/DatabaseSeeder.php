@@ -7,13 +7,13 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
+    public static array $seeders = [];
+
     public function run()
     {
+        foreach (self::$seeders as $seeder) {
+            $this->call($seeder);
+        }
         // \Shofo\User\Models\User::factory(10)->create();
 
         // \Shofo\User\Models\User::factory()->create([

@@ -182,14 +182,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        /*
-         * Modules Service Provider
-         * */
-
-        Shofo\User\Provider\UserServiceProvider::class,
-        Shofo\Dashboard\Provider\DashboardServiceProvider::class,
-        \Shofo\RolePermission\Provider\RoelPermissionServiceProvider::class,
-        Shofo\Category\Provider\CategoryServiceProvider::class,
 
         /*
          * Package Service Provider...
@@ -203,6 +195,18 @@ return [
         // App\Provider\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+
+        /*
+         * Modules Service Provider
+         * */
+
+        Shofo\User\Provider\UserServiceProvider::class,
+        Shofo\Dashboard\Provider\DashboardServiceProvider::class,
+        Shofo\RolePermission\Provider\RoelPermissionServiceProvider::class,
+        Shofo\Category\Provider\CategoryServiceProvider::class,
+        \Shofo\Common\Provider\CommonServiceProvider::class,
+
 
     ],
 

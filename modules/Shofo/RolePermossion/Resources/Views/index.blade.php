@@ -17,7 +17,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($categories as $category)
+                        @foreach($users as $user)
                             <tr role="row" class="">
                                 <td><a href="">{{$category->id}}</a></td>
                                 <td><a href="">{{$category->title}}</a></td>

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Shofo\Category\Http\Requests\CategoryRequest;
 use Shofo\Category\Models\Category;
 use Shofo\Category\Repository\CategoryRepo;
-use Shofo\Category\Responses\AjaxResponses;
+use Shofo\Common\Responses\AjaxResponses;
 
 class CategoryController extends Controller
 {
@@ -47,7 +47,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $this->categoryRepo->delete($category);
-
         return AjaxResponses::success();
     }
 }

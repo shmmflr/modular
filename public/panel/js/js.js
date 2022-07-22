@@ -139,25 +139,29 @@ $('.checkedAll').on('click', function (e) {
         $(".sub-checkbox").prop('checked', false);
     }
 });
+
 function acceptAllLessons(route) {
     if (confirm("آیا از تایید همه جلسات این دوره اطمینان دارید؟")) {
-        $("<form action='"+ route +"' method='post'>" +
-            "<input type='hidden' name='_token' value='"+ $('meta[name="_token"]').attr('content') +"' /> "+
+        $("<form action='" + route + "' method='post'>" +
+            "<input type='hidden' name='_token' value='" + $('meta[name="_token"]').attr('content') + "' /> " +
             "<input type='hidden' name='_method' value='patch'> " +
             "</form>").appendTo('body').submit();
     }
 }
+
 function acceptMultiple(route) {
-    doMultipleAction(route, "آیا مطمئن هستید که می خواهید این سطرها را تایید کنید؟",'patch')
+    doMultipleAction(route, "آیا مطمئن هستید که می خواهید این سطرها را تایید کنید؟", 'patch')
 }
+
 function rejectMultiple(route) {
-    doMultipleAction(route, "آیا مطمئن هستید که می خواهید این سطرها را رد کنید؟",'patch')
+    doMultipleAction(route, "آیا مطمئن هستید که می خواهید این سطرها را رد کنید؟", 'patch')
 }
 
 function deleteMultiple(route) {
-    doMultipleAction(route,"آیا مطمئن هستید که می خواهید این سطرها را حذف کنید؟" ,"delete")
+    doMultipleAction(route, "آیا مطمئن هستید که می خواهید این سطرها را حذف کنید؟", "delete")
 }
-function doMultipleAction(route,message, method){
+
+function doMultipleAction(route, message, method) {
     var allVals = getSelectedItems();
     if (allVals.length <= 0) {
         alert("یک سطر انتخاب کنید");
@@ -165,14 +169,15 @@ function doMultipleAction(route,message, method){
         WRN_PROFILE_DELETE = message;
         var check = confirm(WRN_PROFILE_DELETE);
         if (check == true) {
-            $("<form action='"+ route +"' method='post'>" +
-                "<input type='hidden' name='_token' value='"+ $('meta[name="_token"]').attr('content') +"' /> "+
-                "<input type='hidden' name='_method' value='"+ method +"'> " +
+            $("<form action='" + route + "' method='post'>" +
+                "<input type='hidden' name='_token' value='" + $('meta[name="_token"]').attr('content') + "' /> " +
+                "<input type='hidden' name='_method' value='" + method + "'> " +
                 "<input type='hidden' name='ids' value='" + allVals + "'>" +
                 "</form>").appendTo('body').submit();
         }
     }
 }
+
 function getSelectedItems() {
     var allVals = [];
     $(".sub-checkbox:checked").each(function () {
@@ -212,15 +217,16 @@ $('#discounts-field-2').on('click', function (e) {
 $('#discounts-field-1').on('click', function (e) {
     $('#selectCourseContainer').addClass('d-none')
 });
-function updateConfirmationStatus(event, route, message, status, field = 'confirmation_status', parent = 'tr', target= 'td.') {
+
+function updateConfirmationStatus(event, route, message, status, field = 'confirmation_status', parent = 'tr', target = 'td.') {
     event.preventDefault();
-    if(confirm(message)){
-        $.post(route, { _method: "PATCH", _token: $('meta[name="_token"]').attr('content') })
+    if (confirm(message)) {
+        $.post(route, {_method: "PATCH", _token: $('meta[name="_token"]').attr('content')})
             .done(function (response) {
                 $(event.target).closest(parent).find(target + field).text(status);
                 if (status == "تایید شده") {
                     $(event.target).closest(parent).find(target + field).html("<span class='text-success'>" + status + "</span>");
-                }else{
+                } else {
                     $(event.target).closest(parent).find(target + field).html("<span class='text-error'>" + status + "</span>");
                 }
 
@@ -241,26 +247,29 @@ function updateConfirmationStatus(event, route, message, status, field = 'confir
             })
     }
 }
+
 function deleteItem(event, route, element = 'tr') {
     event.preventDefault();
-    if(confirm('آیا از حذف این آیتم اطمینان دارید؟')){
-        $.post(route, { _method: "delete", _token: $('meta[name="_token"]').attr('content') })
+    if (confirm('آیا از حذف این آیتم اطمینان دارید؟')) {
+        $.post(route, {_method: "DELETE", _token: $('meta[name="_token"]').attr('content')})
             .done(function (response) {
-                event.target.closest(element).remove();
+                console.log(response)
+                event.target.closest('tr').remove();
                 $.toast({
                     heading: 'عملیات موفق',
-                    text: response.message,
+                    text: response.msg,
                     showHideTransition: 'slide',
                     icon: 'success'
                 })
             })
             .fail(function (response) {
+                console.log(response)
                 $.toast({
-                    heading: 'عملیات ناموفق',
-                    text: response.message,
-                    showHideTransition: 'slide',
+                    heading: 'خطا',
+                    text: response.msg,
+                    showHideTransition: 'fade',
                     icon: 'error'
                 })
-            })
+            });
     }
 }
