@@ -15,7 +15,6 @@ class Role extends \Spatie\Permission\Models\Role
             Permission::PERMISSION_SUPER_ADMIN
         ],
         self::ROLE_STUDENT => [
-
         ]
     ];
 

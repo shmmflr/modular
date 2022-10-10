@@ -35,17 +35,20 @@
                                             <li class="deleteable-list-item">
                                                 @lang($userRole->name)
                                                 <a onclick="deleteItem(event,
-                                                    '{{ route('users.removeRole', ['user'=>$user->id,'role'=>$userRole->name]) }}',
-                                                    'li'
-                                                    )"
+                                                    '{{ route('users.removeRole',[$user->id,$userRole->id]) }}',
+                                                    'li')
+                                                    "
                                                    class="item-delete mlg-15" title="حذف"></a>
                                             </li>
                                         @endforeach
+                                        <a href="#add_roles_{{$user->id}}"
+                                           class=" item-add "
+                                           rel="modal:open">add</a>
                                     </ul>
                                 </td>
                                 <td>{{ $user->created_at }}</td>
                                 <td>{{ $user->ip }}</td>
-                                {{--                                <td class="confirmation_status">{!! $user->hasVerifiedEmail() ? "<span class='text-success'>تایید شده</span>"  : "<span class='text-error'>تایید نشده</span>" !!}</td>--}}
+{{--                                <td class="confirmation_status">{!! $user->hasVerifiedEmail() ? "<span class='text-success'>تایید شده</span>"  : "<span class='text-error'>تایید نشده</span>" !!}</td>--}}
                                 <td>
                                     <a href="" onclick="deleteItem(event, '{{ route('users.destroy', $user->id) }}')"
                                        class="item-delete mlg-15" title="حذف"></a>
@@ -58,6 +61,23 @@
                                     {{--                                       class="item-confirm mlg-15" title="تایید"></a>--}}
                                 </td>
                             </tr>
+
+                            <div id="add_roles_{{$user->id}}" class="modal">
+                                <form action="{{route('users.addRole',$user->id)}}"
+                                      method="POST"
+                                >
+                                    @csrf
+                                    <select name="role" id="role">
+                                        <option value="">یک آیتم انتخاب کنید</option>
+                                        @foreach($roles as $role)
+                                            <option value="{{$role->name}}">
+                                                @lang($role->name)
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <button class="btn btn-answer">افزودن</button>
+                                </form>
+                            </div>
                         @endforeach
 
                         </tbody>
@@ -71,5 +91,13 @@
 @section('js')
     <script>
         @include('Common::layout.toast')
+        // $('#add_roles').modal();
     </script>
+
+    <!-- jQuery Modal -->
+    <script src="{{asset('panel/modal/jquery.modal.min.js')}}"></script>
+
+@endsection
+@section('css')
+    <link rel="stylesheet" href="{{asset('panel/modal/jquery.modal.min.css')}}">
 @endsection

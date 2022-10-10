@@ -10,6 +10,7 @@
     "require": {
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^2.7",
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
@@ -34,6 +35,7 @@
             "Database\\Seeders\\": "database/seeders/",
             "Shofo\\User\\": "modules/Shofo/User",
             "Shofo\\Course\\": "modules/Shofo/Course",
+            "Shofo\\Media\\": "modules/Shofo/Media",
             "Shofo\\Dashboard\\": "modules/Shofo/Dashboard",
             "Shofo\\RolePermission\\": "modules/Shofo/RolePermossion",
             "Shofo\\Category\\": "modules/Shofo/Category",

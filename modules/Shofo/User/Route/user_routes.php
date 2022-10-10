@@ -12,7 +12,8 @@ Route::group([
     'prefix' => 'dashboard'
 ], function ($router) {
     Route::resource('users', "UserController");
-    Route::delete('users/{user}/remove/{role}/role',
+    Route::post('/users/{user}/addRole', [\Shofo\User\Http\Controllers\UserController::class, 'addRoles'])->name('users.addRole');
+    Route::delete('users/{user}/{role}/removeRole',
         [\Shofo\User\Http\Controllers\UserController::class, 'removeRole'])->name('users.removeRole');
 });
 

@@ -7,19 +7,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Shofo\Media\Model\Media;
 use Shofo\User\Notifications\ResetPasswordRequestNotification;
 use Shofo\User\Notifications\VerifyEmailNotification;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles ;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    const STATUS_ACTIVE = 'active';
+    const STATUS_DEACTIVE = 'de_active';
+    const STATUS_BAN = 'ban';
+
+    public static array $statuses = [
+        self::STATUS_ACTIVE,
+        self::STATUS_DEACTIVE,
+        self::STATUS_BAN
+    ];
+
+
     protected $fillable = [
         'name',
         'username',
@@ -32,6 +39,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'linkdin',
         'youtube',
         'twitter',
+        'status',
+        'image_id'
     ];
 
     /**
@@ -61,5 +70,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendResetPasswordRequestNotification()
     {
         $this->notify(new ResetPasswordRequestNotification());
+    }
+
+    public function images()
+    {
+        return $this->belongsTo(Media::class, 'image_id', 'id');
+
     }
 }

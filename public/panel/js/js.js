@@ -254,7 +254,7 @@ function deleteItem(event, route, element = 'tr') {
         $.post(route, {_method: "DELETE", _token: $('meta[name="_token"]').attr('content')})
             .done(function (response) {
                 console.log(response)
-                event.target.closest('tr').remove();
+                event.target.closest(element).remove();
                 $.toast({
                     heading: 'عملیات موفق',
                     text: response.msg,
@@ -263,7 +263,7 @@ function deleteItem(event, route, element = 'tr') {
                 })
             })
             .fail(function (response) {
-                console.log(response)
+                console.log(response.responseJSON.message)
                 $.toast({
                     heading: 'خطا',
                     text: response.msg,

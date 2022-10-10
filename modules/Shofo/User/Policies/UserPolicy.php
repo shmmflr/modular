@@ -22,4 +22,10 @@ class UserPolicy
             ? true
             : null;
     }
+    public function removeRole($user)
+    {
+        return $user->hasPermissionTo(Permission::PERMISSION_MANAGE_USERS)
+            ? true
+            : null;
+    }
 }

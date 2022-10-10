@@ -24,6 +24,8 @@ return new class extends Migration {
             $table->string('linkdin')->nullable();
             $table->string('youtube')->nullable();
             $table->string('twitter')->nullable();
+            $table->enum('status', \Shofo\User\Models\User::$statuses)->default(\Shofo\User\Models\User::STATUS_ACTIVE);
+            $table->foreignId('image_id')->constrained()->nullOnDelete()->onUpdate('CASCADE');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

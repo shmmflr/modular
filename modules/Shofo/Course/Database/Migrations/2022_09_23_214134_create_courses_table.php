@@ -17,6 +17,7 @@ return new class extends Migration {
 //            $table->foreignId('teacher_id')->constrained();
             $table->bigInteger('teacher_id')->unsigned();
             $table->bigInteger('category_id')->unsigned()->nullable();
+            $table->bigInteger('banner_id')->unsigned();
             $table->string('title');
             $table->string('slug');
             $table->float('priority');
@@ -24,11 +25,16 @@ return new class extends Migration {
             $table->string('percent', 5);
             $table->enum('type', \Shofo\Course\Models\Course::$types);
             $table->enum('status', \Shofo\Course\Models\Course::$statuses);
+            $table->enum('confirmation', \Shofo\Course\Models\Course::$confirmation);
             $table->text('body')->nullable();
             $table->timestamps();
 
-            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('CASCADE');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('SET NULL');
+            $table->foreign('teacher_id')->references('id')
+                ->on('users')->onDelete('CASCADE');
+            $table->foreign('category_id')->references('id')
+                ->on('categories')->onDelete('SET NULL');
+            $table->foreign('banner_id')->references('id')
+                ->on('media')->onDelete('SET NULL');
         });
     }
 

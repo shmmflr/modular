@@ -8,12 +8,14 @@ class TextArea extends Component
 {
     public string $name;
     public string $placeholder;
+    public $value;
 
-    public function __construct($name, $placeholder)
+    public function __construct($name, $placeholder, $value = null)
     {
         //
         $this->name = $name;
         $this->placeholder = $placeholder;
+        $this->value = $value;
     }
 
 

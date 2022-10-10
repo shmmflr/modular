@@ -14,4 +14,12 @@ class AjaxResponses
             Response::HTTP_OK
         );
     }
+
+    public static function failed()
+    {
+        return response()->json(
+            ['msg' => 'عملیات با ناموفق بود'],
+            Response::HTTP_INTERNAL_SERVER_ERROR
+        );
+    }
 }

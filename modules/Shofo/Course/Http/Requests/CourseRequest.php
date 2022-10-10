@@ -26,7 +26,7 @@ class CourseRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'title' => ['required', 'string', 'min:3'],
             'slug' => ['required', 'string', 'min:3', 'unique:courses,slug'],
             'priority' => ['nullable', 'numeric'],
@@ -39,6 +39,12 @@ class CourseRequest extends FormRequest
             'image' => ['required', 'mimes:png,jpeg,jpg'],
             'body' => ['nullable', 'string', 'max:1000'],
         ];
+        if (request()->method === 'PATCH') {
+            $rules['slug'] = ['required', 'string', 'min:3', Rule::unique('courses')->ignore(request()->route('course'))];
+            $rules['image'] = ['nullable', 'mimes:png,jpeg,jpg'];
+        }
+
+        return $rules;
     }
 
     public function attributes()

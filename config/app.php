@@ -207,6 +207,7 @@ return [
         Shofo\Category\Provider\CategoryServiceProvider::class,
         Shofo\Common\Provider\CommonServiceProvider::class,
         Shofo\Course\Provider\CourseServiceProvider::class,
+        Shofo\Media\Provider\MediaServiceProvider::class
 
 
     ],
@@ -224,6 +225,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
 
 ];

@@ -8,4 +8,6 @@ Route::group([
     'middleware' => ['web', 'auth', 'verified']
 ], function ($router) {
     $router->resource('/course', CourseController::class);
+    $router->patch('/courses/{course}/accept',
+        [CourseController::class, 'accept'])->name('course.accept');
 });
