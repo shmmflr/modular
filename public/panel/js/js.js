@@ -236,8 +236,10 @@ function updateConfirmationStatus(event, route, message, status, field = 'confir
                     showHideTransition: 'slide',
                     icon: 'success'
                 })
+                location.reload();
             })
             .fail(function (response) {
+                console.log(response.message)
                 $.toast({
                     heading: 'عملیات ناموفق',
                     text: response.message,

@@ -85,6 +85,19 @@ class CourseController extends Controller
         return AjaxResponses::failed();
     }
 
+    public function reject($id)
+    {
+        if ($this->courseRepo->confirmCourseStatus($id, Course::CONFIRMATION_REJECT)) {
+            return AjaxResponses::success();
+        };
+        return AjaxResponses::failed();
+    }
+
+    public function details(Course $course)
+    {
+        return view('Courses::detail', compact('course'));
+    }
+
     public function destroy($id)
     {
         $this->courseRepo->delete($id);

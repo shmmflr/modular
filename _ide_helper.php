@@ -10202,11 +10202,11 @@
                         return $instance->duplicate($query, $request, $attributes, $cookies, $files, $server);
         }
                     /**
-         * Whether the request contains a Session object.
+         * Whether the request contains a Section object.
          *
          * This method does not give any information about the state of the session object,
          * like whether the session is started or not. It is just a way to check if this Request
-         * is associated with a Session instance.
+         * is associated with a Section instance.
          *
          * @param bool $skipIfUninitialized When true, ignores factories injected by `setSessionFactory`
          * @static
@@ -10217,7 +10217,7 @@
                         return $instance->hasSession($skipIfUninitialized);
         }
                     /**
-         * Gets the Session.
+         * Gets the Section.
          *
          * @static
          */
@@ -10570,7 +10570,7 @@
                         return \Illuminate\Http\Request::getHttpMethodParameterOverride();
         }
                     /**
-         * Whether the request contains a Session which was started in one of the
+         * Whether the request contains a Section which was started in one of the
          * previous requests.
          *
          * @static

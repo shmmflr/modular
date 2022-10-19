@@ -5,6 +5,7 @@ use Shofo\User\Http\Controllers\Auth\LoginController;
 use Shofo\User\Http\Controllers\Auth\RegisterController;
 use Shofo\User\Http\Controllers\Auth\ResetPasswordController;
 use Shofo\User\Http\Controllers\Auth\VerificationController;
+use Shofo\User\Http\Controllers\UserController;
 
 Route::group([
     'namespace' => 'Shofo\User\Http\Controllers',
@@ -12,9 +13,15 @@ Route::group([
     'prefix' => 'dashboard'
 ], function ($router) {
     Route::resource('users', "UserController");
-    Route::post('/users/{user}/addRole', [\Shofo\User\Http\Controllers\UserController::class, 'addRoles'])->name('users.addRole');
+    Route::post('/users/{user}/addRole', [UserController::class, 'addRoles'])->name('users.addRole');
+    Route::patch('/users/{user}/verifyEmail', [UserController::class, 'verifyEmail'])->name('users.verifyEmail');
     Route::delete('users/{user}/{role}/removeRole',
-        [\Shofo\User\Http\Controllers\UserController::class, 'removeRole'])->name('users.removeRole');
+        [UserController::class, 'removeRole'])->name('users.removeRole');
+    Route::post('/users/photo', [UserController::class, 'uploadPhoto'])
+        ->name('users.photo');
+    Route::get('edit/profile', [UserController::class, 'editProfile'])->name('edit.profile');
+    Route::get('tutors/{username}', [UserController::class, 'viewProfile'])->name('view.profile');
+    Route::post('update/profile', [UserController::class, 'updateProfile'])->name('update.profile');
 });
 
 

@@ -57,6 +57,14 @@
                         >@lang($status)</option>
                     @endforeach
                 </x-select>
+                <x-select name="role">
+                    <option value=""> یک نقش کاربری انتخاب کنبد</option>
+                    @foreach($roles as $role)
+                        <option value="{{$role->name}}"
+                                @if($user->hasRole($role->name))selected @endif
+                        >@lang($role->name)</option>
+                    @endforeach
+                </x-select>
                 {{--برای مقدار دهی به عکس باید از rel که مد مدل User است استفاده کرد--}}
                 <x-file-upload name="image" :value="$user->images"/>
 

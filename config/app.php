@@ -200,15 +200,13 @@ return [
         /*
          * Modules Service Provider
          * */
-
+        Shofo\RolePermission\Provider\RoelPermissionServiceProvider::class,
         Shofo\User\Provider\UserServiceProvider::class,
         Shofo\Dashboard\Provider\DashboardServiceProvider::class,
-        Shofo\RolePermission\Provider\RoelPermissionServiceProvider::class,
         Shofo\Category\Provider\CategoryServiceProvider::class,
-        Shofo\Common\Provider\CommonServiceProvider::class,
         Shofo\Course\Provider\CourseServiceProvider::class,
-        Shofo\Media\Provider\MediaServiceProvider::class
-
+        Shofo\Media\Provider\MediaServiceProvider::class,
+        Shofo\Common\Provider\CommonServiceProvider::class,
 
     ],
 

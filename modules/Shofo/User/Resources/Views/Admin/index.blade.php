@@ -18,7 +18,7 @@
                             <th>سطح کاربری</th>
                             <th>تاریخ عضویت</th>
                             <th>ای پی</th>
-                            {{--                            <th>وضعیت حساب</th>--}}
+                            <th>وضعیت حساب</th>
                             <th>عملیات</th>
                         </tr>
                         </thead>
@@ -34,31 +34,33 @@
                                         @foreach($user->roles as $userRole)
                                             <li class="deleteable-list-item">
                                                 @lang($userRole->name)
-                                                <a onclick="deleteItem(event,
-                                                    '{{ route('users.removeRole',[$user->id,$userRole->id]) }}',
-                                                    'li')
-                                                    "
-                                                   class="item-delete mlg-15" title="حذف"></a>
-                                            </li>
+{{--                                                <a onclick="deleteItem(event,--}}
+{{--                                                    '{{ route('users.removeRole',[$user->id,$userRole->id]) }}',--}}
+{{--                                                    'li')--}}
+{{--                                                    "--}}
+{{--                                                   class="item-delete mlg-15" title="حذف"></a>--}}
+{{--                                            </li>--}}
                                         @endforeach
-                                        <a href="#add_roles_{{$user->id}}"
-                                           class=" item-add "
-                                           rel="modal:open">add</a>
+{{--                                        <a href="#add_roles_{{$user->id}}"--}}
+{{--                                           class=" item-add "--}}
+{{--                                           rel="modal:open">add</a>--}}
                                     </ul>
                                 </td>
                                 <td>{{ $user->created_at }}</td>
                                 <td>{{ $user->ip }}</td>
-{{--                                <td class="confirmation_status">{!! $user->hasVerifiedEmail() ? "<span class='text-success'>تایید شده</span>"  : "<span class='text-error'>تایید نشده</span>" !!}</td>--}}
+                                <td class="confirmation_status">{!! $user->hasVerifiedEmail() ? "<span class='text-success'>تایید شده</span>"  : "<span class='text-error'>تایید نشده</span>" !!}</td>
                                 <td>
                                     <a href="" onclick="deleteItem(event, '{{ route('users.destroy', $user->id) }}')"
                                        class="item-delete mlg-15" title="حذف"></a>
                                     <a href="{{ route('users.edit', $user->id) }}" target="_blank"
                                        class="item-edit mlg-15"
                                        title="ویرایش"></a>
-                                    {{--                                    <a href=""--}}
-                                    {{--                                       onclick="updateConfirmationStatus(event, '{{ route('users.manualVerify', $user->id) }}',--}}
-                                    {{--                                           'آیا از تایید این آیتم اطمینان دارید؟' , 'تایید شده')"--}}
-                                    {{--                                       class="item-confirm mlg-15" title="تایید"></a>--}}
+                                    @if(!$user->hasVerifiedEmail())
+                                        <a href=""
+                                           onclick="updateConfirmationStatus(event, '{{ route('users.verifyEmail', $user->id) }}',
+                                               'آیا از تایید این آیتم اطمینان دارید؟' , 'تایید شده')"
+                                           class="item-confirm mlg-15" title="تایید"></a>
+                                    @endif
                                 </td>
                             </tr>
 

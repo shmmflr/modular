@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 use Shofo\Common\Responses\AjaxResponses;
 use Shofo\Media\Services\MediaCoreService;
 use Shofo\RolePermission\Models\Role;
+use Shofo\RolePermission\Repository\RoleRepo;
 use Shofo\User\Http\Requests\AddRoleRequest;
+use Shofo\User\Http\Requests\UpdateProfileUserRequest;
 use Shofo\User\Http\Requests\UpdateUserRequest;
+use Shofo\User\Http\Requests\UserPhotoRequest;
 use Shofo\User\Models\User;
 use Shofo\User\Repository\UserRepo;
 
@@ -16,10 +19,12 @@ class UserController extends Controller
 {
 
     protected UserRepo $userRepo;
+    public RoleRepo $roleRepo;
 
-    public function __construct(UserRepo $userRepo)
+    public function __construct(UserRepo $userRepo, RoleRepo $roleRepo)
     {
         $this->userRepo = $userRepo;
+        $this->roleRepo = $roleRepo;
     }
 
     public function index()
@@ -50,7 +55,8 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('User::Admin.edit', compact('user'));
+        $roles = $this->roleRepo->all();
+        return view('User::Admin.edit', compact('user', 'roles'));
     }
 
     public function update(User $user, UpdateUserRequest $request)
@@ -68,6 +74,48 @@ class UserController extends Controller
 
         feedbacks();
         return redirect()->back();
+    }
+
+    public function viewProfile()
+    {
+
+    }
+
+    public function editProfile()
+    {
+        $this->authorize('updateProfile', User::class);
+        return view('User::Admin.profile');
+    }
+
+    public function updateProfile(UpdateProfileUserRequest $request)
+    {
+        $this->authorize('updateProfile', User::class);
+        $this->userRepo->updateProfile($request);
+
+        feedbacks();
+        return back();
+    }
+
+
+    public function verifyEmail(User $user)
+    {
+        $user->markEmailAsVerified();
+
+        return AjaxResponses::success();
+    }
+
+    public function uploadPhoto(UserPhotoRequest $request)
+    {
+
+        $photo = MediaCoreService::upload($request->file('photo'));
+
+        if (auth()->user()->image) {
+            auth()->user()->image->delete();
+        }
+        auth()->user()->image_id = $photo->id;
+        auth()->user()->save();
+        feedbacks();
+        return back();
     }
 
 

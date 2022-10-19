@@ -10,4 +10,11 @@ Route::group([
     $router->resource('/course', CourseController::class);
     $router->patch('/courses/{course}/accept',
         [CourseController::class, 'accept'])->name('course.accept');
+
+    $router->patch('/courses/{course}/reject',
+        [CourseController::class, 'reject'])->name('course.reject');
+
+    $router->get('/course/{course}/details', [
+        CourseController::class, 'details'
+    ])->name('course.details');
 });

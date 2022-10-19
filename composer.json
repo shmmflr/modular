@@ -35,11 +35,11 @@
             "Database\\Seeders\\": "database/seeders/",
             "Shofo\\User\\": "modules/Shofo/User",
             "Shofo\\Course\\": "modules/Shofo/Course",
+            "Shofo\\Common\\": "modules/Shofo/Common",
             "Shofo\\Media\\": "modules/Shofo/Media",
             "Shofo\\Dashboard\\": "modules/Shofo/Dashboard",
             "Shofo\\RolePermission\\": "modules/Shofo/RolePermossion",
-            "Shofo\\Category\\": "modules/Shofo/Category",
-            "Shofo\\Common\\": "modules/Shofo/Common"
+            "Shofo\\Category\\": "modules/Shofo/Category"
         }
     },
     "autoload-dev": {

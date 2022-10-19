@@ -17,6 +17,7 @@
                             <th>شناسه</th>
                             <th>اولویت</th>
                             <th>نام دوره</th>
+                            <th>جزئیات</th>
                             <th>نام مدرس</th>
                             <th>وضعیت</th>
                             <th>وضعیت تایید</th>
@@ -34,6 +35,9 @@
                                 <td><a href="">{{$course->id}}</a></td>
                                 <td><a href="">{{$course->priority}}</a></td>
                                 <td><a href="">{{$course->title}}</a></td>
+                                <td><a href="{{route('course.details',$course->id)}}">
+                                        مشاهده</a>
+                                </td>
                                 <td><a href="">{{$course->teacher->name}}</a></td>
                                 <td>@lang($course->status)</td>
                                 <td>@lang($course->confirmation)</td>
@@ -46,7 +50,10 @@
                                     <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
                                     <a href="{{route('course.edit',$course->id)}}" class="item-edit mlg-15 "
                                        title="ویرایش"></a>
-                                    <a href="" class="item-reject mlg-15" title="رد"></a>
+                                    <a href="" onclick="updateConfirmationStatus(event,
+                                        '{{ route('course.reject', $course->id) }}',
+                                        'آیا از رد این آیتم اطمینان دارید؟' , 'رد شده')"
+                                       class="item-reject mlg-15" title="رد"></a>
                                     <a href="" onclick="updateConfirmationStatus(event,
                                         '{{ route('course.accept', $course->id) }}',
                                         'آیا از تایید این آیتم اطمینان دارید؟' , 'تایید شده')"

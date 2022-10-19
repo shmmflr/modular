@@ -2,12 +2,16 @@
 
 namespace Shofo\User\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Shofo\Course\Models\Course;
+use Shofo\Course\Models\Section;
 use Shofo\Media\Model\Media;
+use Shofo\RolePermission\Models\Role;
 use Shofo\User\Notifications\ResetPasswordRequestNotification;
 use Shofo\User\Notifications\VerifyEmailNotification;
 use Spatie\Permission\Traits\HasRoles;
@@ -27,6 +31,16 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
 
+    public static array $adminUser = [
+        [
+            'name' => 'admin',
+            'password' => 'admin',
+            'email' => 'admin@gmail.com',
+            'role' => Role::ROLE_SUPER_ADMIN,
+
+        ]
+    ];
+
     protected $fillable = [
         'name',
         'username',
@@ -40,7 +54,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'youtube',
         'twitter',
         'status',
-        'image_id'
+        'image_id',
+        'ip',
+        'shaba',
+        'card_number',
     ];
 
     /**
@@ -72,9 +89,26 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new ResetPasswordRequestNotification());
     }
 
-    public function images()
+    public function image()
     {
         return $this->belongsTo(Media::class, 'image_id', 'id');
 
+    }
+
+    public function userName()
+    {
+        return $this->username ?
+            route('view.profile', $this->username) :
+            route('view.profile', 'username');
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    public function sections()
+    {
+        return $this->hasMany(Section::class);
     }
 }
