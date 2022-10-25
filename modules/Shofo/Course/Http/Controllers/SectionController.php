@@ -20,6 +20,7 @@ class SectionController extends Controller
 
     public function store(Course $course, SectionRequest $request)
     {
+        $this->authorize('createSection', $course);
         $this->sectionRepo->store($course, $request);
 
         feedbacks();
@@ -29,11 +30,13 @@ class SectionController extends Controller
 
     public function edit(Section $section)
     {
+        $this->authorize('edit', $section);
         return view('Courses::Section.edit', compact('section'));
     }
 
     public function update(Section $section, SectionRequest $request)
     {
+        $this->authorize('edit', $section);
         $this->sectionRepo->update($section, $request);
         feedbacks();
         return redirect()->back();
@@ -41,6 +44,7 @@ class SectionController extends Controller
 
     public function accept($id)
     {
+        $this->authorize('confirmStatus', Section::class);
         if ($this->sectionRepo->sectionStatus($id, Section::CONFIRMATION_ACCEPT)) {
             return AjaxResponses::success();
         };
@@ -49,10 +53,20 @@ class SectionController extends Controller
 
     public function reject($id)
     {
+        $this->authorize('confirmStatus', Section::class);
+
         if ($this->sectionRepo->sectionStatus($id, Section::CONFIRMATION_REJECT)) {
             return AjaxResponses::success();
         };
         return AjaxResponses::failed();
+    }
+
+    public function destroy($id)
+    {
+        $section = $this->sectionRepo->findById($id);
+        $this->authorize('destroy', $section);
+
+        $this->sectionRepo->delete($id);
     }
 
 }

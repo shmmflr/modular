@@ -10,23 +10,17 @@ class MediaCoreService
     public static function upload($file)
     {
         $extension = strtolower($file->getClientOriginalExtension());
-        switch ($extension) {
-            case 'png':
-            case 'jpg':
-            case'jpeg':
+
+        foreach (config("MediaFileConfig.MediaFileServices") as $key => $service) {
+            if (in_array($extension, $service['extensions'])) {
                 $media = new Media();
-                $media->files = ImageFileService::upload($file);
+                $media->files = $service['handler']::upload($file);
                 $media->user_id = auth()->id();
-                $media->type = 'image';
+                $media->type = $key;
                 $media->filename = $file->getClientOriginalName();
                 $media->save();
                 return $media;
-
-            case 'mp4':
-            case 'wmv':
-            case 'mkv':
-                VideoFileService::upload($file);
-                break;
+            }
         }
     }
 

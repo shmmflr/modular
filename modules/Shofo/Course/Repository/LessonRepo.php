@@ -3,44 +3,36 @@
 namespace Shofo\Course\Repository;
 
 use Shofo\Common\Responses\AjaxResponses;
-use Shofo\Course\Models\Course;
-use Shofo\Course\Models\Section;
+use Shofo\Course\Models\Lesson;
 
-class SectionRepo
+
+class LessonRepo
 {
     public function store($course, $request)
     {
-
         $data = [
             'title' => $request->get('title'),
-            'number' => $this->generateNumber($request, $course->id),
+            'slug' => $request->get('slug'),
+            'time' => $request->get('time'),
+            'status' => Lesson::CONFIRMATION_ACCEPT,
+            'free' => $request->get('type'),
+            'priority' => $this->generateNumber($request, $course->id),
             'user_id' => auth()->id(),
             'course_id' => $course->id,
+            'section_id' => $request->get('section_id'),
+            'media_id' => $request->get('file_id'),//todo upload fails
+            'body' => $request->get('body'),
+
         ];
 
-        return Section::query()->create($data);
+
+        return Lesson::query()->create($data);
     }
 
-    public function findByIdAndCourse($id, $curse_id)
-    {
-        return Section::query()
-            ->where('id', $id)
-            ->where('course_id', $curse_id)
-            ->first();
-    }
-
-    public function sections($course)
-    {
-
-        return Section::query()->where('course_id', $course)
-            ->where('status', Section::CONFIRMATION_ACCEPT)
-            ->orderBy('number')
-            ->get();
-    }
 
     public function findById($id)
     {
-        return Section::query()->findOrFail($id);
+        return Lesson::query()->findOrFail($id);
     }
 
     public function delete($id)
@@ -69,18 +61,18 @@ class SectionRepo
 
     public function sectionStatus($id, $status)
     {
-        return Section::query()->find($id)->update(['status' => $status]);
+        return Lesson::query()->find($id)->update(['status' => $status]);
     }
 
 
     public function generateNumber($request, $course_id): mixed
     {
         $course = new CourseRepo();
-        if (is_null($request->get('number'))) {
-            $number = $course->findById($course_id)->sections()->orderBy('number', 'desc')->firstOrNew([])->number ?: 0;
+        if (is_null($request->get('priority'))) {
+            $number = $course->findById($course_id)->lessons()->orderBy('priority', 'desc')->firstOrNew([])->priority ?: 0;
             $number++;
         } else {
-            $number = $request->get('number');
+            $number = $request->get('priority');
         }
         return $number;
     }

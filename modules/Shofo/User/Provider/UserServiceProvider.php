@@ -6,6 +6,7 @@ use App\Http\Middleware\StoreUserIp;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Shofo\RolePermission\Models\Permission;
 use Shofo\User\Database\Seeders\UserSeeder;
 use Shofo\User\Models\User;
 use Shofo\User\Policies\UserPolicy;
@@ -37,6 +38,7 @@ class UserServiceProvider extends ServiceProvider
             "icon" => "i-users",
             "title" => "کاربران",
             "url" => route('users.index'),
+            "permission" => Permission::PERMISSION_MANAGE_USERS,
         ]);
         $this->app->booted(function () {
             config()->set('sidebar.items.profile', [

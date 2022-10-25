@@ -3,6 +3,7 @@
 namespace Shofo\Category\Provider;
 
 use Illuminate\Support\ServiceProvider;
+use Shofo\RolePermission\Models\Permission;
 
 class CategoryServiceProvider extends ServiceProvider
 {
@@ -23,7 +24,8 @@ class CategoryServiceProvider extends ServiceProvider
             [
                 'title' => 'دسته بندی ها',
                 'icon' => ' i-categories',
-                'url' => route('category.index')
+                'url' => route('category.index'),
+                "permission" => Permission::PERMISSION_MANAGE_CATEGORIES,
             ]);
     }
 

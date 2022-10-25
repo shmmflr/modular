@@ -21,20 +21,25 @@
                     <td><a href="">{{$section->number}}</a></td>
                     <td><a href="">{{$section->title}}</a></td>
                     <td>
-                        @if($section->status == \Shofo\Course\Models\Section::CONFIRMATION_ACCEPT)
+                        @can(\Shofo\RolePermission\Models\Permission::PERMISSION_MANAGE_COURSES)
 
-                            <a href="" onclick="updateConfirmationStatus(event,
-                                '{{ route('sections.reject', $section->id) }}',
-                                'آیا از رد این آیتم اطمینان دارید؟' , 'رد شده')"
-                               class="item-reject mlg-15" title="رد"></a>
+                            @if($section->status == \Shofo\Course\Models\Section::CONFIRMATION_ACCEPT)
 
-                        @else
-                            <a href="" onclick="updateConfirmationStatus(event,
-                                '{{ route('sections.accept', $section->id) }}',
-                                'آیا از تایید این آیتم اطمینان دارید؟' , 'تایید شده')"
-                               class="item-confirm mlg-15" title="تایید"></a>
-                        @endif
-                        <a href="" class="item-delete mlg-15" title="حذف"></a>
+                                <a href="" onclick="updateConfirmationStatus(event,
+                                    '{{ route('sections.reject', $section->id) }}',
+                                    'آیا از رد این آیتم اطمینان دارید؟' , 'رد شده')"
+                                   class="item-reject mlg-15" title="رد"></a>
+
+                            @else
+                                <a href="" onclick="updateConfirmationStatus(event,
+                                    '{{ route('sections.accept', $section->id) }}',
+                                    'آیا از تایید این آیتم اطمینان دارید؟' , 'تایید شده')"
+                                   class="item-confirm mlg-15" title="تایید"></a>
+                            @endif
+                        @endcan
+                        <a
+                            onclick="deleteItem(event,'{{route('sections.destroy',$section->id)}}')"
+                            class="item-delete mlg-15" title="حذف"></a>
                         <a href="{{route('sections.edit',$section->id)}}" class="item-edit " title="ویرایش"></a>
                     </td>
                 </tr>

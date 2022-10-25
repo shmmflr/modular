@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Shofo\RolePermission\Database\Seeders\RolePermissionSeeder;
 use Shofo\RolePermission\Models\Permission;
-use Shofo\RolePermission\Policies\RolePermissionPolicy;
+use Shofo\RolePermission\Policies\CoursePolicy;
 use Shofo\User\Models\User;
 use Spatie\Permission\Models\Role;
 
@@ -28,7 +28,7 @@ class RoelPermissionServiceProvider extends ServiceProvider
                 : null;
         });
 
-        Gate::policy(Role::class, RolePermissionPolicy::class);
+        Gate::policy(Role::class, CoursePolicy::class);
     }
 
     public function boot()
@@ -38,7 +38,7 @@ class RoelPermissionServiceProvider extends ServiceProvider
             "icon" => "i-role-permissions",
             "title" => "نقشهای کاربری",
             "url" => route('role_permissions.index'),
-//            "permission" => Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS,
+           "permission" => Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS,
         ]);
     }
 

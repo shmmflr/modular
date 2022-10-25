@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Shofo\Category\Repository\CategoryRepo;
 use Shofo\Common\Responses\AjaxResponses;
 use Shofo\Course\Http\Requests\CourseRequest;
-use Shofo\Course\Http\Requests\CourseUpdateRequest;
 use Shofo\Course\Models\Course;
 use Shofo\Course\Repository\CourseRepo;
 use Shofo\Media\Services\MediaCoreService;
@@ -27,13 +26,14 @@ class CourseController extends Controller
 
     public function index()
     {
-
+        $this->authorize('index', Course::class);
         $courses = $this->courseRepo->paginate();
         return view('Courses::index', compact('courses'));
     }
 
     public function create()
     {
+        $this->authorize('create', Course::class);
         $categories = $this->categoryRepo->all();
         $teachers = $this->userRepo->teachers();
         return view('Courses::create', compact('categories', 'teachers'));
@@ -41,6 +41,7 @@ class CourseController extends Controller
 
     public function store(CourseRequest $request,)
     {
+        $this->authorize('create', Course::class);
         $request->request
             ->add(['banner_id' => MediaCoreService::upload($request->file('image'))->id]);
 
@@ -51,6 +52,7 @@ class CourseController extends Controller
 
     public function edit($id)
     {
+        $this->authorize('edit', Course::class);
         $course = $this->courseRepo->findById($id);
         $categories = $this->categoryRepo->all();
         $teachers = $this->userRepo->teachers();
@@ -61,6 +63,8 @@ class CourseController extends Controller
 
     public function update($id, CourseRequest $request)
     {
+        $this->authorize('edit', Course::class);
+
         $course = $this->courseRepo->findById($id);
 
         if ($request->hasFile('image')) {
@@ -79,6 +83,7 @@ class CourseController extends Controller
 
     public function accept($id)
     {
+        $this->authorize('confirmStatus', Course::class);
         if ($this->courseRepo->confirmCourseStatus($id, Course::CONFIRMATION_ACCEPT)) {
             return AjaxResponses::success();
         };
@@ -87,6 +92,8 @@ class CourseController extends Controller
 
     public function reject($id)
     {
+        $this->authorize('confirmStatus', Course::class);
+
         if ($this->courseRepo->confirmCourseStatus($id, Course::CONFIRMATION_REJECT)) {
             return AjaxResponses::success();
         };
@@ -95,11 +102,15 @@ class CourseController extends Controller
 
     public function details(Course $course)
     {
+        $this->authorize('destails', $course);
+
         return view('Courses::detail', compact('course'));
     }
 
     public function destroy($id)
     {
+        $this->authorize('destroy', Course::class);
+
         $this->courseRepo->delete($id);
     }
 }

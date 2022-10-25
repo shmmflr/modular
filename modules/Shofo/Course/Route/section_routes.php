@@ -20,4 +20,7 @@ Route::group([
         ->name('sections.edit');
     $router->patch('sections/{section}/update', [SectionController::class, 'update'])
         ->name('sections.update');
+
+    $router->delete('sections/{id}/destroy', [SectionController::class, 'destroy'])
+        ->name('sections.destroy');
 });
